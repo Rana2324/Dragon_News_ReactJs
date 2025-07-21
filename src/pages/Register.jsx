@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { APP_CONFIG } from '../constants';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -29,52 +30,73 @@ const Register = () => {
     const { name, email, password, confirmPassword } = formData;
 
     if (!name || !email || !password || !confirmPassword) {
+      toast.error('Please fill in all fields');
       setError('Please fill in all fields');
       return;
     }
 
     if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
       setError('Passwords do not match');
       return;
     }
 
     if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
       setError('Password must be at least 6 characters long');
       return;
     }
 
-    try {
+    const registerPromise = async () => {
       setError('');
       setLoading(true);
       await register(email, password, name);
       navigate('/');
-    } catch (error) {
+    };
+
+    toast.promise(
+      registerPromise(),
+      {
+        loading: 'Creating your account...',
+        success: 'Registration successful! Welcome to Dragon News!',
+        error: (err) => err.message || 'Failed to create account. Please try again.',
+      }
+    ).catch((error) => {
       setError('Failed to create account. Please try again.');
       console.error('Registration error:', error);
-    } finally {
+    }).finally(() => {
       setLoading(false);
-    }
+    });
   };
 
   const handleGoogleLogin = async () => {
-    try {
+    const googleRegisterPromise = async () => {
       setError('');
       setLoading(true);
       await loginWithGoogle();
       navigate('/');
-    } catch (error) {
+    };
+
+    toast.promise(
+      googleRegisterPromise(),
+      {
+        loading: 'Creating account with Google...',
+        success: 'Registration successful! Welcome to Dragon News!',
+        error: (err) => err.message || 'Failed to register with Google.',
+      }
+    ).catch((error) => {
       setError('Failed to register with Google.');
       console.error('Google registration error:', error);
-    } finally {
+    }).finally(() => {
       setLoading(false);
-    }
+    });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-accent">🐉 {APP_CONFIG.APP_NAME}</h2>
+          <h2 className="text-3xl font-bold text-accent"> {APP_CONFIG.APP_NAME}</h2>
           <h3 className="mt-6 text-2xl font-semibold text-primary">
             Create your account
           </h3>

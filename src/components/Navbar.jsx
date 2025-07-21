@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import Marquee from './Marquee';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
@@ -9,12 +10,21 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
+    const logoutPromise = async () => {
       await logout();
       navigate('/');
-    } catch (error) {
+    };
+
+    toast.promise(
+      logoutPromise(),
+      {
+        loading: 'Signing out...',
+        success: 'Logged out successfully! See you next time!',
+        error: (err) => err.message || 'Failed to log out. Please try again.',
+      }
+    ).catch((error) => {
       console.error('Logout error:', error);
-    }
+    });
   };
 
   const breakingNews = [

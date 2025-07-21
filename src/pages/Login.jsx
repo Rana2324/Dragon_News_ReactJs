@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { APP_CONFIG } from '../constants';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,42 +20,61 @@ const Login = () => {
     e.preventDefault();
     
     if (!email || !password) {
+      toast.error('Please fill in all fields');
       setError('Please fill in all fields');
       return;
     }
 
-    try {
+    const loginPromise = async () => {
       setError('');
       setLoading(true);
       await login(email, password);
       navigate(from, { replace: true });
-    } catch (error) {
+    };
+
+    toast.promise(
+      loginPromise(),
+      {
+        loading: 'Signing in...',
+        success: 'Login successful! Welcome back!',
+        error: (err) => err.message || 'Failed to log in. Please check your credentials.',
+      }
+    ).catch((error) => {
       setError('Failed to log in. Please check your credentials.');
       console.error('Login error:', error);
-    } finally {
+    }).finally(() => {
       setLoading(false);
-    }
+    });
   };
 
   const handleGoogleLogin = async () => {
-    try {
+    const googleLoginPromise = async () => {
       setError('');
       setLoading(true);
       await loginWithGoogle();
       navigate(from, { replace: true });
-    } catch (error) {
+    };
+
+    toast.promise(
+      googleLoginPromise(),
+      {
+        loading: 'Signing in with Google...',
+        success: 'Login successful! Welcome back!',
+        error: (err) => err.message || 'Failed to log in with Google.',
+      }
+    ).catch((error) => {
       setError('Failed to log in with Google.');
       console.error('Google login error:', error);
-    } finally {
+    }).finally(() => {
       setLoading(false);
-    }
+    });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-accent">🐉 {APP_CONFIG.APP_NAME}</h2>
+          <h2 className="text-3xl font-bold text-accent"> {APP_CONFIG.APP_NAME}</h2>
           <h3 className="mt-6 text-2xl font-semibold text-primary">
             Sign in to your account
           </h3>
