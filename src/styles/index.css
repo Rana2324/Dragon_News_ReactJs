@@ -1,0 +1,256 @@
+/* Google Fonts Import - Must come first */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  .serif-text {
+    font-family: 'Crimson Text', serif;
+  }
+}
+
+@layer components {
+  /* Newspaper Header Styles */
+  .newspaper-header {
+    @apply bg-white border-b-4 border-accent shadow-lg;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  }
+  
+  .newspaper-masthead {
+    @apply text-center py-6 border-b border-gray-200;
+  }
+  
+  .newspaper-title {
+    font-family: 'Playfair Display', serif;
+    @apply text-5xl md:text-6xl font-black text-gray-900 tracking-tight;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .newspaper-tagline {
+    @apply text-sm text-gray-600 font-medium tracking-widest uppercase mt-2;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .newspaper-date {
+    @apply text-xs text-gray-500 mt-1 font-light;
+  }
+
+  /* Professional Card Styles */
+  .news-card {
+    @apply bg-white rounded-none shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100;
+    background: linear-gradient(145deg, #ffffff 0%, #fefefe 100%);
+  }
+  
+  .news-card:hover {
+    @apply transform -translate-y-1 shadow-2xl;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+  
+  .featured-card {
+    @apply border-l-4 border-accent bg-gradient-to-r from-red-50 to-white;
+  }
+  
+  /* Typography Styles */
+  .headline-primary {
+    font-family: 'Playfair Display', serif;
+    @apply text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-3;
+  }
+  
+  .headline-secondary {
+    font-family: 'Playfair Display', serif;
+    @apply text-xl font-semibold text-gray-800 leading-snug mb-2;
+  }
+  
+  .byline {
+    @apply text-sm text-gray-600 font-medium;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .dateline {
+    @apply text-xs text-gray-500 uppercase tracking-wide;
+  }
+  
+  .lead-text {
+    @apply text-lg text-gray-700 leading-relaxed;
+    font-family: 'Crimson Text', serif;
+  }
+  
+  .body-text {
+    @apply text-base text-gray-700 leading-relaxed;
+    font-family: 'Crimson Text', serif;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-accent text-white px-6 py-3 font-semibold tracking-wide uppercase text-sm transition-all duration-300 hover:bg-red-700 hover:shadow-lg transform hover:scale-105;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-800 px-6 py-3 font-semibold tracking-wide uppercase text-sm transition-all duration-300 hover:bg-gray-200 hover:shadow-md border border-gray-200;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-accent text-accent px-6 py-3 font-semibold tracking-wide uppercase text-sm transition-all duration-300 hover:bg-accent hover:text-white hover:shadow-lg;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Input Styles */
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 bg-white;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Layout Components */
+  .sidebar {
+    @apply bg-white border-r border-gray-200 shadow-sm;
+  }
+  
+  .main-content {
+    @apply bg-white min-h-screen;
+  }
+  
+  .section-divider {
+    @apply border-t-2 border-gray-200 my-8 relative;
+  }
+  
+  .section-divider::after {
+    content: '';
+    @apply absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-8 h-1 bg-accent;
+  }
+
+  /* Category Styles */
+  .category-tag {
+    @apply inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-white bg-accent;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+  }
+  
+  .category-link {
+    @apply block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-accent transition-all duration-200 border-l-4 border-transparent hover:border-accent;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .category-link.active {
+    @apply bg-red-50 text-accent border-accent font-semibold;
+  }
+
+  /* Breaking News Banner */
+  .breaking-news {
+    @apply bg-accent text-white py-2 px-4 text-sm font-bold uppercase tracking-wider;
+    animation: pulse 2s infinite;
+  }
+  
+  /* Article Meta */
+  .article-meta {
+    @apply flex items-center space-x-4 text-sm text-gray-600 border-t border-b border-gray-200 py-3 my-4;
+  }
+  
+  .article-meta-item {
+    @apply flex items-center space-x-1;
+  }
+
+  /* Professional Grid */
+  .news-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  .featured-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+  }
+  
+  .featured-main {
+    @apply lg:col-span-2;
+  }
+  
+  .featured-sidebar {
+    @apply lg:col-span-1 space-y-6;
+  }
+
+  /* Loading States */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+  
+  .skeleton-text {
+    @apply h-4 bg-gray-200 rounded animate-pulse;
+  }
+  
+  .skeleton-title {
+    @apply h-6 bg-gray-200 rounded animate-pulse;
+  }
+
+  /* Professional Shadows */
+  .shadow-newspaper {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+  
+  .shadow-newspaper-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Responsive Typography */
+  @media (max-width: 768px) {
+    .headline-primary {
+      @apply text-xl;
+    }
+    
+    .newspaper-title {
+      @apply text-3xl;
+    }
+  }
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-family: 'Times New Roman', serif;
+    color: black;
+    background: white;
+  }
+  
+  .news-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
